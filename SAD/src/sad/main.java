@@ -8,7 +8,9 @@ import weka.core.Instances;
 public class main {
 
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
+		//Esto funciona con un fichero de train y otro de test
+		//El uso del test todavia no está implementado
+		
 		if( args.length < 2 ){
 			System.out.println("ERROR DE ARGUMENTOS");
 			System.out.println("\n");
