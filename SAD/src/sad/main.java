@@ -32,7 +32,6 @@ public class main {
 		NBayes.getNBayes().honesto(train);
 		
 		
-		
 		/*
 		//buscamos el mejor clasificador para cada algoritmo
 		OneR one = ScanParamsOneR.getScanParamsOneR().barrido(train);
