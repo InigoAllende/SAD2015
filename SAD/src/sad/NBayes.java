@@ -17,6 +17,7 @@ private static NBayes miNBayes = new NBayes();
 	public static NBayes getNBayes(){
 		return miNBayes;
 	}
+	
 	public void honesto(Instances data) throws Exception
 	{
 		NaiveBayes classifier;
