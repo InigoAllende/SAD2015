@@ -26,9 +26,12 @@ public class main {
 		System.out.println("\n");
 		System.out.println("Ficheros cargados");
 		System.out.println("\n");
-		
 		//preproceso, filtro normalize
 		train=Preprocess.getPreprocesar().preprocess(train);
+
+		NBayes.getNBayes().honesto(train);
+		
+		
 		
 		/*
 		//buscamos el mejor clasificador para cada algoritmo
