@@ -1,6 +1,7 @@
 package sad;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.BayesNet;
@@ -9,6 +10,9 @@ import weka.classifiers.bayes.net.estimate.BayesNetEstimator;
 import weka.classifiers.bayes.net.estimate.MultiNomialBMAEstimator;
 import weka.classifiers.bayes.net.estimate.SimpleEstimator;
 import weka.classifiers.bayes.net.search.SearchAlgorithm;
+import weka.classifiers.bayes.net.search.global.HillClimber;
+import weka.classifiers.bayes.net.search.local.K2;
+import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Instances;
 import weka.estimators.Estimator;
 
@@ -24,7 +28,7 @@ private static BNetwork miBNetwork = new BNetwork();
 		return miBNetwork;
 	}
 	
-	public void noHonesto(Instances data)
+	public void noHonesto(Instances data) throws Exception
 	{
 		//Tiene 3 opciones importantes
 		//estimator elige el algoritmo estimador, se pone con setEstimator(BayesNetEstimator)
@@ -36,18 +40,22 @@ private static BNetwork miBNetwork = new BNetwork();
 		
 		BayesNet classifier;
 		Evaluation evaluator;
-		/*
-		estimators.add(new SimpleEstimator());
-		estimators.add(new BayesNetEstimator());	
-		estimators.add(new BMAEstimator());
-		estimators.add(new MultiNomialBMAEstimator());
-		*/
+
 		classifier = new BayesNet();
-		classifier.setEstimator(new BayesNetEstimator());
-		SearchAlgorithm as = new SearchAlgorithm();
-
-		classifier.setSearchAlgorithm(new SearchAlgorithm());
-
+		evaluator = new Evaluation(data);
+		evaluator.crossValidateModel(classifier, data, 10, new Random(1));
+		classifier.setEstimator(new MultiNomialBMAEstimator());
+		classifier.getEstimator().setAlpha(0.3);
+		//SearchAlgorithm as = new SearchAlgorithm();
+		HillClimber est = new HillClimber();
+		//est.setMaxNrOfParents(1);
+		classifier.setSearchAlgorithm(est);
+		classifier.setUseADTree(true);
+		double j = evaluator.weightedFMeasure();
+		System.out.println(j);
 	}
-
+		//0.7038798522052109
+		//0.7038798522052109
+		//0.7038798522052109
+		
 }

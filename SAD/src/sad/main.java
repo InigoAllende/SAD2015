@@ -25,14 +25,16 @@ public class main {
 		System.out.println("Cargando los ficheros...");
 		Instances train = CargarDatos.cargarDatos(args[0]);
 		Instances test = CargarDatos.cargarDatos(args[1]);
+		Instances train2 = train;
 		System.out.println("\n");
 		System.out.println("Ficheros cargados");
 		System.out.println("\n");
 		//preproceso, filtro normalize
 		train=Preprocess.getPreprocesar().preprocess(train);
-
-		NBayes.getNBayes().honesto(train);
-		
+		//prepro con removeuseless y outliers....
+		train2 = Preprocess.getPreprocesar().preprocess2(train2);
+		//NBayes.getNBayes().honesto(train);
+		BNetwork.getBayesNet().noHonesto(train);
 		
 		/*
 		//buscamos el mejor clasificador para cada algoritmo
