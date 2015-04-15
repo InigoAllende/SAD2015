@@ -43,14 +43,22 @@ private static BNetwork miBNetwork = new BNetwork();
 
 		classifier = new BayesNet();
 		evaluator = new Evaluation(data);
-		evaluator.crossValidateModel(classifier, data, 10, new Random(1));
-		classifier.setEstimator(new MultiNomialBMAEstimator());
-		classifier.getEstimator().setAlpha(0.3);
+		
+		
+		SimpleEstimator est = new SimpleEstimator();
+		//MultiNomialBMAEstimator est = new MultiNomialBMAEstimator();
+		//BMAEstimator est = new BMAEstimator();
+		est.setAlpha(0.5);
+		classifier.setEstimator(est);
+		//classifier.getEstimator().setAlpha(0.5);
 		//SearchAlgorithm as = new SearchAlgorithm();
-		HillClimber est = new HillClimber();
-		//est.setMaxNrOfParents(1);
-		classifier.setSearchAlgorithm(est);
-		classifier.setUseADTree(true);
+		K2 search = new K2();
+		//HillClimber search = new HillClimber();
+		search.setMaxNrOfParents(1);
+		
+		classifier.setSearchAlgorithm(search);
+		classifier.setUseADTree(false);
+		evaluator.crossValidateModel(classifier, data, 10, new Random(2));
 		double j = evaluator.weightedFMeasure();
 		System.out.println(j);
 	}

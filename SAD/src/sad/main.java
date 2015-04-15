@@ -30,9 +30,9 @@ public class main {
 		System.out.println("Ficheros cargados");
 		System.out.println("\n");
 		//preproceso, filtro normalize
-		train=Preprocess.getPreprocesar().preprocess(train);
+		//train=Preprocess.getPreprocesar().preprocess(train);
 		//prepro con removeuseless y outliers....
-		train2 = Preprocess.getPreprocesar().preprocess2(train2);
+		//train2 = Preprocess.getPreprocesar().preprocess2(train2);
 		//NBayes.getNBayes().honesto(train);
 		BNetwork.getBayesNet().noHonesto(train);
 		
