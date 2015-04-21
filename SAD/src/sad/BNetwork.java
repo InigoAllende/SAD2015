@@ -36,28 +36,25 @@ private static BNetwork miBNetwork = new BNetwork();
 		//se pone con setSearchAlgorithm(SearchAlgorithm)
 		//ADTree reduce el tiempo que tarda en hacer sus cosas pero consume mas memoria y puede dar problemas
 		//se pone con setUseADTree(boolean)
-		ArrayList<Object> estimators = new ArrayList<>();
 		
 		BayesNet classifier;
 		Evaluation evaluator;
 		double mejorFM = 0.0;
 		String mejorEst = null;
 		
-		
-		SimpleEstimator sEst = new SimpleEstimator();
-		MultiNomialBMAEstimator est = new MultiNomialBMAEstimator();
-		//BMAEstimator est = new BMAEstimator();
 		ArrayList<BayesNetEstimator> estimadores = new ArrayList<>();
+		
 		estimadores.add(new SimpleEstimator());
 		estimadores.add(new BMAEstimator());
 		estimadores.add(new MultiNomialBMAEstimator());
 		//Al usar este me sale un error de incorrect estimator use subclass
-		//estimadores.add(new BayesNetEstimator());
+		estimadores.add(new BayesNetEstimator());
 		
 		ArrayList<String> lista = new ArrayList<>();
 		lista.add("Simple Estimator");
 		lista.add("BMA Estimator");
 		lista.add("MultiNomialBMA Estimator");
+		lista.add("BayesNetEstimator");
 		//Por cara estimador que vayamos a usar
 		for(int i = 0; i < estimadores.size(); i++)
 		{
@@ -76,7 +73,6 @@ private static BNetwork miBNetwork = new BNetwork();
 		}
 		
 		
-		est.setAlpha(0.5);
 		//SearchAlgorithm as = new SearchAlgorithm();
 		K2 search = new K2();
 		//HillClimber search = new HillClimber();

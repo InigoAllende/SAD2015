@@ -7,6 +7,7 @@ import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 import weka.filters.unsupervised.attribute.InterquartileRange;
 import weka.filters.unsupervised.attribute.RemoveUseless;
+import weka.filters.unsupervised.attribute.StringToWordVector;
 import weka.filters.unsupervised.instance.Normalize;
 
 
@@ -31,7 +32,8 @@ public class Preprocess {
 	public Instances preprocess2(Instances data) throws Exception{
 		//En este preprocesado se aplican filtros que eliminan atributos
 		//si se usa a la hora de clasificar las instancias de test hay que usar FilteredClassifier
-		RemoveUseless filter = new RemoveUseless();
+		//RemoveUseless filter = new RemoveUseless();
+		StringToWordVector filter = new StringToWordVector();
 		filter.setInputFormat(data);
 		Instances newData = Filter.useFilter(data, filter);
 		return newData;

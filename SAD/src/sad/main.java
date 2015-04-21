@@ -11,30 +11,35 @@ public class main {
 		//Esto funciona con un fichero de train y otro de test
 		//El uso del test todavia no está implementado
 		
-		if( args.length < 2 ){
+		if( args.length < 3 ){
 			System.out.println("ERROR DE ARGUMENTOS");
 			System.out.println("\n");
-			System.out.println("El programa necesita 2 parámetros, la ruta del conjunto de entrenamiento y la ruta del conjunto de test. Recuerda que si no hay conjunto de entrenamiento tendras que poner el conjunto de test 2 veces.");
+			System.out.println("El programa necesita 3 parámetros, la ruta de los conjuntos de entrenamiento y la ruta del conjunto de test. Recuerda que si no hay conjunto de entrenamiento tendras que poner el conjunto de test 2 veces.");
 			System.out.println(" \n");
-			System.out.println("Ejemplo:  java -jar DSSP3.jar [C:/weine_train.arff] [C:/weine_test.arff]");
+			System.out.println("Ejemplo:  java -jar DSSP3.jar [C:/weine_train.arff] [C:/weine_test.arff] [C:/snaiucbasc.arff]");
 			System.out.println(" \n");
 			System.out.println(" \n");
 			return;
 		}
 		// cargamos los ficheros del test y de entrenamiento
 		System.out.println("Cargando los ficheros...");
+		
 		Instances train = CargarDatos.cargarDatos(args[0]);
-		Instances test = CargarDatos.cargarDatos(args[1]);
-		Instances train2 = train;
-		System.out.println("\n");
+		Instances dev = CargarDatos.cargarDatos(args[1]);
+		Instances test = CargarDatos.cargarDatos(args[2]);
+		
+		
+
 		System.out.println("Ficheros cargados");
-		System.out.println("\n");
+		System.out.println("");
 		//preproceso, filtro normalize
-		//train=Preprocess.getPreprocesar().preprocess(train);
+		train=Preprocess.getPreprocesar().preprocess2(train);
+		dev =Preprocess.getPreprocesar().preprocess2(dev);
 		//prepro con removeuseless y outliers....
 		//train2 = Preprocess.getPreprocesar().preprocess2(train2);
-		//NBayes.getNBayes().honesto(train);
-		BNetwork.getBayesNet().noHonesto(train);
+		NBayes.getNBayes().evaluar(train, dev, false);
+		NBayes.getNBayes().evaluar(train, dev, true);
+		//BNetwork.getBayesNet().noHonesto(train);
 		
 		/*
 		//buscamos el mejor clasificador para cada algoritmo
