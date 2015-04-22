@@ -1,5 +1,6 @@
 package sad;
 
+import weka.classifiers.bayes.BayesNet;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.classifiers.rules.OneR;
 import weka.core.Instances;
@@ -36,10 +37,19 @@ public class main {
 		train=Preprocess.getPreprocesar().preprocess2(train);
 		dev =Preprocess.getPreprocesar().preprocess2(dev);
 		//prepro con removeuseless y outliers....
-		//train2 = Preprocess.getPreprocesar().preprocess2(train2);
-		NBayes.getNBayes().evaluar(train, dev, false);
-		NBayes.getNBayes().evaluar(train, dev, true);
-		//BNetwork.getBayesNet().noHonesto(train);
+
+		//Baseline
+		//NBayes.getNBayes().evaluar(train, dev, false);
+		//NBayes.getNBayes().evaluar(train, dev, true);
+
+		//BayesNet
+		//BNetwork.getBayesNet().evaluar(train, dev, false);
+		BayesNet bNet = BNetwork.getBayesNet().evaluar(train, dev, true);
+		
+		
+		
+		
+		
 		
 		/*
 		//buscamos el mejor clasificador para cada algoritmo

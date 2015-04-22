@@ -25,22 +25,21 @@ private static NBayes miNBayes = new NBayes();
 		
 		NaiveBayes classifier;
 		Evaluation evaluator;
+		Evaluation mejorEvaluator = null;
 		double fMea = 0;
 		double mejor = 0;
 		String opciones = "";
 		String mejorOpciones = "";
 		Instances total= new Instances(train);
-		// Instances total = Instances.mergeInstances(train, dev);
-		
+
 		for (int i = 0; i < dev.numInstances(); i++) {
 			
 			total.add(dev.instance(i));
 			
 		}
 		
-		System.out.println("Evaluando..... Espere Porfavor");
+		System.out.println("Evaluando..... Espere por favor");
 		
-		String prueba = "2";
 
 		for (int i = 0; i < 3; i++) {
 
@@ -97,6 +96,9 @@ private static NBayes miNBayes = new NBayes();
 
 				mejor = fMea;
 				mejorOpciones = opciones;
+				
+				//Hay que mirar esta linea para asugrarnos de que es asi
+				mejorEvaluator = evaluator;
 			}
 			
 		
@@ -121,6 +123,8 @@ private static NBayes miNBayes = new NBayes();
 		System.out.println(mejorOpciones);
 		System.out.println("");
 	
+		ImprimirDatos.getImprimirDatos().imprimir(mejorEvaluator);
+		
 	}
 
 }
