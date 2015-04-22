@@ -28,7 +28,7 @@ private static BNetwork miBNetwork = new BNetwork();
 		return miBNetwork;
 	}
 	
-	public BayesNet evaluar(Instances train, Instances dev, boolean honesto) throws Exception
+	public void evaluar(Instances train, Instances dev, boolean honesto) throws Exception
 	{
 		//Tiene 3 opciones importantes
 		//estimator elige el algoritmo estimador, se pone con setEstimator(BayesNetEstimator)
@@ -85,7 +85,7 @@ private static BNetwork miBNetwork = new BNetwork();
 			{
 				mejorFM = j;
 				mejorEst = lista.get(i);
-				mejorClassifier = classifier;
+				mejorEvaluator = evaluator;
 			}
 		}
 		
@@ -112,7 +112,6 @@ private static BNetwork miBNetwork = new BNetwork();
 		System.out.println("");
 		ImprimirDatos.getImprimirDatos().imprimir(mejorEvaluator);
 		
-		return mejorClassifier;
 	}
 
 }

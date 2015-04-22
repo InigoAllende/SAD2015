@@ -44,7 +44,7 @@ public class main {
 
 		//BayesNet
 		//BNetwork.getBayesNet().evaluar(train, dev, false);
-		BayesNet bNet = BNetwork.getBayesNet().evaluar(train, dev, true);
+		BNetwork.getBayesNet().evaluar(train, dev, true);
 		
 		
 		
