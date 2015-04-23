@@ -41,18 +41,19 @@ public class Predicciones {
 		}
 		
 		Evaluation evaluator = new Evaluation(total);
-		double predictions[] = new double[test.numInstances()];
+		double predictions[] = new double[test.numInstances()+1];
 		//Guardamos por cada instancia del test la predicción en un array
 		for (int i = 0; i < test.numInstances(); i++) {
 			predictions[i] = evaluator.evaluateModelOnceAndRecordPrediction((Classifier)estimador, test.instance(i));
 			
 		}
-		
+		String data="";
 		//Imprimimos por pantalla
 		for (int i=0; i < test.numInstances(); i++) {
 			
-			System.out.println("Instancia:  "+i+"  Clasificada como:  "+predictions[i]);
+			data += ("Instancia:  "+i+"  Clasificada como:  "+predictions[i]+"\n");
 		}
+		ManejoDatos.getCargaDatos().guardarEnFichero2(data);
 	}
 	
 	public BayesNet entrenar(Instances train, Instances dev) throws Exception
@@ -64,17 +65,20 @@ public class Predicciones {
 		
 		ArrayList<BayesNetEstimator> estimadores = new ArrayList<>();
 		
-		estimadores.add(new SimpleEstimator());
-		estimadores.add(new BMAEstimator());
-		estimadores.add(new MultiNomialBMAEstimator());
+		//estimadores.add(new SimpleEstimator());
+		//estimadores.add(new BMAEstimator());
+		MultiNomialBMAEstimator bma = new MultiNomialBMAEstimator();
+		bma.setUseK2Prior(false);
+		estimadores.add(bma);
 		//Al usar este me sale un error de incorrect estimator use subclass
 		//estimadores.add(new BayesNetEstimator());
 		
 		ArrayList<String> lista = new ArrayList<>();
-		lista.add("Simple Estimator");
-		lista.add("BMA Estimator");
+		//lista.add("Simple Estimator");
 		lista.add("MultiNomialBMA Estimator");
-		lista.add("BayesNetEstimator");
+		/*lista.add("BMA Estimator");
+		lista.add("MultiNomialBMA Estimator");
+		lista.add("BayesNetEstimator");*/
 		
 
 		//Por cara estimador que vayamos a usar
@@ -84,10 +88,8 @@ public class Predicciones {
 			evaluator = new Evaluation(train);
 			classifier.setEstimator(estimadores.get(i));
 			
-			
 			classifier.buildClassifier(train);
 			evaluator.evaluateModel(classifier, dev);			
-
 			
 			double j = evaluator.weightedFMeasure();
 			if(j > mejorFM)

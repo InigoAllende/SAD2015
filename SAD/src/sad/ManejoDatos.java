@@ -1,24 +1,25 @@
 package sad;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
 import weka.core.Instances;
-import weka.filters.Filter;
-import weka.filters.unsupervised.instance.Randomize;
  
-public class CargarDatos {
+public class ManejoDatos {
      
-    private static CargarDatos miCargaDatos = new CargarDatos();
+    private static ManejoDatos miCargaDatos = new ManejoDatos();
      
-    private CargarDatos()
+    private ManejoDatos()
     {
          
     }
      
-    public static CargarDatos getCargaDatos()
+    public static ManejoDatos getCargaDatos()
     {
         return miCargaDatos;
     }
@@ -67,6 +68,43 @@ public class CargarDatos {
         Random rand = new Random(42);
         data.randomize(rand);
     }
+    
+    public void guardarEnFichero(Instances data) {
+
+		
+		String ruta = "C:/Users/Borja/Desktop/prueba1.arff";
+		File f = new File(ruta);
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+			writer.write(data.toString());
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+    
+public void guardarEnFichero2(String data) {
+
+		
+		String ruta = "C:/Users/Admin/Desktop/prueba1.txt";
+		File f = new File(ruta);
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+			writer.write(data);
+			writer.flush();
+			writer.close();
+			System.out.println("Fichero guardado");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
  
 }
 

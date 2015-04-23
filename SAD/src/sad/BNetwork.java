@@ -47,16 +47,16 @@ private static BNetwork miBNetwork = new BNetwork();
 		ArrayList<BayesNetEstimator> estimadores = new ArrayList<>();
 		
 		estimadores.add(new SimpleEstimator());
-		estimadores.add(new BMAEstimator());
-		estimadores.add(new MultiNomialBMAEstimator());
+		//estimadores.add(new BMAEstimator());
+		//estimadores.add(new MultiNomialBMAEstimator());
 		//Al usar este me sale un error de incorrect estimator use subclass
 		//estimadores.add(new BayesNetEstimator());
 		
 		ArrayList<String> lista = new ArrayList<>();
 		lista.add("Simple Estimator");
-		lista.add("BMA Estimator");
-		lista.add("MultiNomialBMA Estimator");
-		lista.add("BayesNetEstimator");
+		//lista.add("BMA Estimator");
+		//lista.add("MultiNomialBMA Estimator");
+		//lista.add("BayesNetEstimator");
 		
 		Instances total= new Instances(train);
 
@@ -77,7 +77,8 @@ private static BNetwork miBNetwork = new BNetwork();
 				evaluator.evaluateModel(classifier, total);			
 			}
 			else {
-				evaluator.crossValidateModel(classifier, total, 10, new Random(1));
+				classifier.buildClassifier(total);
+				evaluator.crossValidateModel(classifier, total, 2, new Random(1));
 			}
 			
 			double j = evaluator.weightedFMeasure();

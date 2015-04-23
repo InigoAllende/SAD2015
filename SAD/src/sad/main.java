@@ -25,17 +25,20 @@ public class main {
 		// cargamos los ficheros del test y de entrenamiento
 		System.out.println("Cargando los ficheros...");
 		
-		Instances train = CargarDatos.cargarDatos(args[0]);
-		Instances dev = CargarDatos.cargarDatos(args[1]);
-		Instances test = CargarDatos.cargarDatos(args[2]);
-		
-		
-
+		Instances train = ManejoDatos.cargarDatos(args[0]);
+		Instances dev = ManejoDatos.cargarDatos(args[1]);
+		Instances test = ManejoDatos.cargarDatos(args[2]);
+	
 		System.out.println("Ficheros cargados");
 		System.out.println("");
 		//preproceso, filtro normalize
+		train=Preprocess.getPreprocesar().preprocess(train);
+		dev =Preprocess.getPreprocesar().preprocess(dev);
 		train=Preprocess.getPreprocesar().preprocess2(train);
 		dev =Preprocess.getPreprocesar().preprocess2(dev);
+		//train=Preprocess.getPreprocesar().superPreProcess(train);
+		//dev =Preprocess.getPreprocesar().superPreProcess(dev);
+		
 		//prepro con removeuseless y outliers....
 
 		//Baseline
@@ -44,12 +47,9 @@ public class main {
 
 		//BayesNet
 		//BNetwork.getBayesNet().evaluar(train, dev, false);
-		BNetwork.getBayesNet().evaluar(train, dev, true);
+		//BNetwork.getBayesNet().evaluar(train, dev, true);
 		
-		
-		
-		
-		
+		Predicciones.getMiPredicciones().predecir(train, dev, test);	
 		
 		/*
 		//buscamos el mejor clasificador para cada algoritmo
