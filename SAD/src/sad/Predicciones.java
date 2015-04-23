@@ -53,7 +53,7 @@ public class Predicciones {
 		String data="";
 		//Imprimimos por pantalla
 		for (int i=0; i < test.numInstances(); i++) {
-			System.out.println("Instancia:  "+i+"  Clasificada como:  "+predictions[i]);
+			//System.out.println("Instancia:  "+i+"  Clasificada como:  "+predictions[i]);
 			data += ("Instancia:  "+i+"  Clasificada como:  "+predictions[i]+"\n");
 		}
 		ManejoDatos.getManejoDatos().guardarEnFichero2(data);
