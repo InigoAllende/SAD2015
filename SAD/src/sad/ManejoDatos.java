@@ -12,16 +12,22 @@ import weka.core.Instances;
  
 public class ManejoDatos {
      
-    private static ManejoDatos miCargaDatos = new ManejoDatos();
+    private static ManejoDatos miManejoDatos = new ManejoDatos();
+     private String ruta = "";
      
     private ManejoDatos()
     {
          
     }
      
-    public static ManejoDatos getCargaDatos()
+    public static ManejoDatos getManejoDatos()
     {
-        return miCargaDatos;
+        return miManejoDatos;
+    }
+    
+    public void setRuta(String pRuta)
+    {
+    	this.ruta = pRuta;
     }
  
     public static Instances cargarDatos(String path) throws Exception
@@ -72,8 +78,8 @@ public class ManejoDatos {
     public void guardarEnFichero(Instances data) {
 
 		
-		String ruta = "C:/Users/Borja/Desktop/prueba1.arff";
-		File f = new File(ruta);
+		//String ruta = "C:/Users/Borja/Desktop/prueba1.arff";
+		File f = new File(this.ruta);
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(f));
 			writer.write(data.toString());
@@ -90,8 +96,8 @@ public class ManejoDatos {
 public void guardarEnFichero2(String data) {
 
 		
-		String ruta = "C:/Users/Admin/Desktop/prueba1.txt";
-		File f = new File(ruta);
+		//String ruta = "C:/Users/Admin/Desktop/prueba1.txt";
+		File f = new File(this.ruta);
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(f));
 			writer.write(data);

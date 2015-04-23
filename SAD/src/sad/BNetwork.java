@@ -43,7 +43,8 @@ private static BNetwork miBNetwork = new BNetwork();
 		BayesNet mejorClassifier = null;
 		Evaluation evaluator;
 		double mejorFM = 0.0;
-		String mejorEst = null;
+		String mejorEst = "";
+		String mejorSA = "";
 		Evaluation mejorEvaluator = null;
 		
 		ArrayList<BayesNetEstimator> estimadores = new ArrayList<>();
@@ -102,19 +103,13 @@ private static BNetwork miBNetwork = new BNetwork();
 			{
 				mejorFM = j;
 				mejorEst = lista.get(i);
+				mejorSA = listSearchNombres.get(k);
 				mejorEvaluator = evaluator;
 			}
 			}
 		}
 		
 		
-		//SearchAlgorithm as = new SearchAlgorithm();
-		//K2 search = new K2();
-		//HillClimber search = new HillClimber();
-		//search.setMaxNrOfParents(1);
-		
-		//classifier.setSearchAlgorithm(search);
-		//classifier.setUseADTree(false);
 		
 		System.out.println("");
 		if (!honesto) {
@@ -126,7 +121,7 @@ private static BNetwork miBNetwork = new BNetwork();
 		}
 		System.out.println("---------------------");
 		System.out.println("");
-		System.out.println("La mejor F-measure es: "+mejorFM+" con el estimador: "+mejorEst);
+		System.out.println("La mejor F-measure es: "+mejorFM+" con el estimador: "+mejorEst+" y el algoritmo de búsqueda: "+mejorSA);
 		System.out.println("");
 		ImprimirDatos.getImprimirDatos().imprimir(mejorEvaluator);
 		

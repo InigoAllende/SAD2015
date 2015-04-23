@@ -56,7 +56,7 @@ public class Predicciones {
 			System.out.println("Instancia:  "+i+"  Clasificada como:  "+predictions[i]);
 			data += ("Instancia:  "+i+"  Clasificada como:  "+predictions[i]+"\n");
 		}
-		ManejoDatos.getCargaDatos().guardarEnFichero2(data);
+		ManejoDatos.getManejoDatos().guardarEnFichero2(data);
 	}
 	
 	public BayesNet entrenar(Instances train, Instances dev) throws Exception
