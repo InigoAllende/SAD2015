@@ -10,6 +10,8 @@ import weka.classifiers.bayes.net.estimate.BayesNetEstimator;
 import weka.classifiers.bayes.net.estimate.MultiNomialBMAEstimator;
 import weka.classifiers.bayes.net.estimate.SimpleEstimator;
 import weka.classifiers.bayes.net.search.SearchAlgorithm;
+import weka.classifiers.bayes.net.search.ci.CISearchAlgorithm;
+import weka.classifiers.bayes.net.search.fixed.NaiveBayes;
 import weka.classifiers.bayes.net.search.global.HillClimber;
 import weka.classifiers.bayes.net.search.local.K2;
 import weka.classifiers.meta.FilteredClassifier;
@@ -58,6 +60,16 @@ private static BNetwork miBNetwork = new BNetwork();
 		//lista.add("MultiNomialBMA Estimator");
 		//lista.add("BayesNetEstimator");
 		
+		ArrayList<SearchAlgorithm> listSearch = new ArrayList<>();
+		  listSearch.add(new K2());
+		  listSearch.add(new NaiveBayes());
+		  listSearch.add(new CISearchAlgorithm());
+		  
+		  ArrayList<String> listSearchNombres= new ArrayList<>();
+		  listSearchNombres.add("K2");
+		  listSearchNombres.add("NaiveBayes");
+		  listSearchNombres.add("CISearchAlgortihm");
+		
 		Instances total= new Instances(train);
 
 		for (int i = 0; i < dev.numInstances(); i++) {
@@ -71,6 +83,10 @@ private static BNetwork miBNetwork = new BNetwork();
 			classifier = new BayesNet();
 			evaluator = new Evaluation(total);
 			classifier.setEstimator(estimadores.get(i));
+			
+			for (int k=0;k<listSearch.size();k++) {
+				
+				classifier.setSearchAlgorithm(listSearch.get(k));	
 			
 			if (!honesto) {	
 				classifier.buildClassifier(total);
@@ -87,6 +103,7 @@ private static BNetwork miBNetwork = new BNetwork();
 				mejorFM = j;
 				mejorEst = lista.get(i);
 				mejorEvaluator = evaluator;
+			}
 			}
 		}
 		

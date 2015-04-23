@@ -8,6 +8,7 @@ import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Discretize;
 import weka.filters.unsupervised.attribute.ReplaceMissingValues;
+import weka.filters.unsupervised.attribute.StringToNominal;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 import weka.filters.unsupervised.instance.Normalize;
 
@@ -34,9 +35,13 @@ public class Preprocess {
 		//En este preprocesado se aplican filtros que eliminan atributos
 		//si se usa a la hora de clasificar las instancias de test hay que usar FilteredClassifier
 		//RemoveUseless filter = new RemoveUseless();
+		StringToNominal filter2 = new StringToNominal();
+		filter2.setInputFormat(data);
+		Instances newData2 = Filter.useFilter(data, filter2);
+		
 		StringToWordVector filter = new StringToWordVector();
 		filter.setInputFormat(data);
-		Instances newData = Filter.useFilter(data, filter);
+		Instances newData = Filter.useFilter(newData2, filter);
 		return newData;
 	}
 	
@@ -72,12 +77,12 @@ public class Preprocess {
 		      data = Filter.useFilter(data, m_DiscretizeFilter);
 		    }
 
-		    /*if (bHasMissingValues) {
+		    if (bHasMissingValues) {
 		      System.err.println("Warning: filling in missing values in data set");
 		      m_MissingValuesFilter = new ReplaceMissingValues();
 		      m_MissingValuesFilter.setInputFormat(data);
 		      data = Filter.useFilter(data, m_MissingValuesFilter);
-		    }*/
+		    }
 		    return data;
 		  } // normalizeDataSet
 		

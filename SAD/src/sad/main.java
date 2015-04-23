@@ -36,18 +36,19 @@ public class main {
 		dev =Preprocess.getPreprocesar().preprocess(dev);
 		train=Preprocess.getPreprocesar().preprocess2(train);
 		dev =Preprocess.getPreprocesar().preprocess2(dev);
-		//train=Preprocess.getPreprocesar().superPreProcess(train);
-		//dev =Preprocess.getPreprocesar().superPreProcess(dev);
+		train=Preprocess.getPreprocesar().superPreProcess(train);
+		dev =Preprocess.getPreprocesar().superPreProcess(dev);
+		test = Preprocess.getPreprocesar().superPreProcess(test);
 		
 		//prepro con removeuseless y outliers....
 
 		//Baseline
-		//NBayes.getNBayes().evaluar(train, dev, false);
-		//NBayes.getNBayes().evaluar(train, dev, true);
+		NBayes.getNBayes().evaluar(train, dev, false);
+		NBayes.getNBayes().evaluar(train, dev, true);
 
 		//BayesNet
-		//BNetwork.getBayesNet().evaluar(train, dev, false);
-		//BNetwork.getBayesNet().evaluar(train, dev, true);
+		BNetwork.getBayesNet().evaluar(train, dev, false);
+		BNetwork.getBayesNet().evaluar(train, dev, true);
 		
 		Predicciones.getMiPredicciones().predecir(train, dev, test);	
 		
